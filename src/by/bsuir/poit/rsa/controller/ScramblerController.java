@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class ScramblerController {
 
-    private static final String KEY_WINDOW_TITLE = "Public key calculator";
+    private static final String KEY_WINDOW_TITLE = "Public key";
     @FXML
     private MenuItem keyCalculateMenu;
 
