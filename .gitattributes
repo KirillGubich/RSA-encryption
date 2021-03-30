@@ -1,0 +1,2 @@
+# Auto detect textComponent files and perform LF normalization
+* textComponent=auto
