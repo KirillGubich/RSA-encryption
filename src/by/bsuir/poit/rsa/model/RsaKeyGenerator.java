@@ -7,9 +7,9 @@ public enum RsaKeyGenerator {
     INSTANCE;
 
     public BigInteger generatePublicKey(BigInteger p, BigInteger q) {
-        BigInteger eulerFunction = p.subtract(new BigInteger("1"))
-                .multiply(q.subtract(new BigInteger("1")));
-        BigInteger key = generateRandomValue(eulerFunction.subtract(new BigInteger("1")));
+        BigInteger eulerFunction = p.subtract(BigInteger.ONE)
+                .multiply(q.subtract(BigInteger.ONE));
+        BigInteger key = generateRandomValue(eulerFunction.subtract(BigInteger.ONE));
         while (!checkMutuallySimple(key, eulerFunction)) {
             key = generateRandomValue(eulerFunction);
         }
@@ -17,13 +17,13 @@ public enum RsaKeyGenerator {
     }
 
     public BigInteger calculatePrivateKey(BigInteger p, BigInteger q, BigInteger publicKey) {
-        BigInteger eulerFunction = p.subtract(new BigInteger("1"))
-                .multiply(q.subtract(new BigInteger("1")));
+        BigInteger eulerFunction = p.subtract(BigInteger.ONE)
+                .multiply(q.subtract(BigInteger.ONE));
         return calculateMultiplicativeModuloInverse(eulerFunction, publicKey);
     }
 
     private BigInteger generateRandomValue(BigInteger maxLimit) {
-        BigInteger minLimit = new BigInteger("1");
+        BigInteger minLimit = BigInteger.ONE;
         BigInteger bigInteger = maxLimit.subtract(minLimit);
         Random randNum = new Random();
         int len = maxLimit.bitLength();
@@ -45,18 +45,18 @@ public enum RsaKeyGenerator {
                 secondValue = secondValue.subtract(firstValue);
             }
         }
-        return firstValue.equals(new BigInteger("1"));
+        return firstValue.equals(BigInteger.ONE);
     }
 
     private BigInteger calculateMultiplicativeModuloInverse(BigInteger a, BigInteger b) {
         BigInteger d0 = a;
         BigInteger d1 = b;
-        BigInteger x0 = new BigInteger("1");
-        BigInteger x1 = new BigInteger("0");
-        BigInteger y0 = new BigInteger("0");
-        BigInteger moduloInverse = new BigInteger("1");
+        BigInteger x0 = BigInteger.ONE;
+        BigInteger x1 = BigInteger.ZERO;
+        BigInteger y0 = BigInteger.ZERO;
+        BigInteger moduloInverse = BigInteger.ONE;
 
-        while (d1.compareTo(new BigInteger("1")) > 0) {
+        while (d1.compareTo(BigInteger.ONE) > 0) {
             BigInteger q;
             BigInteger d2;
             BigInteger x2;

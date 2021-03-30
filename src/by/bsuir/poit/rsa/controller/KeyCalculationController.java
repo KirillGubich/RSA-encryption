@@ -3,7 +3,6 @@ package by.bsuir.poit.rsa.controller;
 import by.bsuir.poit.rsa.model.RsaKeyGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.math.BigInteger;
@@ -15,9 +14,6 @@ public class KeyCalculationController {
 
     @FXML
     private TextField qValueInput;
-
-    @FXML
-    private Button generateKeyBtn;
 
     @FXML
     private TextField rField;
