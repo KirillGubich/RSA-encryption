@@ -10,11 +10,37 @@ public enum RsaScrambler {
     private static final String NUMBER_REGEXP = "[\\s]+";
     private static final BigInteger TWO = new BigInteger("2");
 
-    public String encrypt(String text, BigInteger key, BigInteger r) {
+    public String encryptNumbers(String text, BigInteger key, BigInteger r, boolean signature) {
         String[] inputNumbers = text.split(NUMBER_REGEXP);
         List<BigInteger> resultList = new ArrayList<>();
         for (String inputNumber : inputNumbers) {
             BigInteger number = new BigInteger(inputNumber);
+            resultList.add(fastPower(number, key, r));
+        }
+        if (!signature) {
+            char[] result = convertToChars(resultList);
+            return new String(result);
+        } else {
+            return resultList.get(0).toString();
+        }
+    }
+
+    private char[] convertToChars(List<BigInteger> resultList) {
+        char[] result = new char[resultList.size()];
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = (char) resultList.get(i).intValue();
+        }
+        return result;
+    }
+
+
+    public String encryptText(String text, BigInteger key, BigInteger r) {
+        final char[] chars = text.toCharArray();
+        List<BigInteger> resultList = new ArrayList<>();
+        for (Character letter : chars) {
+            final int numericValue = (int) letter;
+            BigInteger number = new BigInteger(String.valueOf(numericValue));
             resultList.add(fastPower(number, key, r));
         }
         StringBuilder sb = new StringBuilder();
